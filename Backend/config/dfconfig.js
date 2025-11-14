@@ -1,21 +1,18 @@
 import { MongoClient } from "mongodb";
+import dotenv from "dotenv";
+dotenv.config(); // loads .env
 
 let db;
 
-export async function connectDB() {
-  const uri =
-    "mongodb+srv://mohaksharma1025_db_user:jBJgaJH3nOLZ4Ltd@cluster0.i5b8tpp.mongodb.net/todoapp?retryWrites=true&w=majority&appName=Cluster0";
+export const connectDB = async () => {
+  try {
+    const client = new MongoClient(process.env.MONGO_URI);
+    await client.connect();
+    db = client.db("todoapp"); // database name
+    console.log("MongoDB Connected");
+  } catch (error) {
+    console.error("DB Connection Error:", error);
+  }
+};
 
-  const client = new MongoClient(uri);
-
-  await client.connect();
-
-  db = client.db("todoapp");  // <-- This is the DB name I set
-
-  console.log("MongoDB connected successfully!");
-}
-
-export function getDB() {
-  if (!db) throw new Error("Database connection not initialized");
-  return db;
-}
+export const getDB = () => db;
