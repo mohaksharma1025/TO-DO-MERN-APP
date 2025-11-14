@@ -8,7 +8,7 @@ export default function Navbar() {
     <nav className="navbar">
       <h1 className="logo">TO DO APP</h1>
       <ul className="nav-links">
-        <li>List</li>
+        <li><Link to="/list">List</Link></li>
         <li><Link to="/add">Add Task</Link></li>
       </ul>
     </nav>
