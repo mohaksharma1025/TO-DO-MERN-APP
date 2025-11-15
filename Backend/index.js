@@ -60,6 +60,25 @@ app.get("/tasks", async (req, res) => {
     res.status(500).json({ error: "Server error" });
   }
 });
+app.get("/task/:id", async (req, res) => {
+  try {
+    const db = getDB();
+    const tasks = db.collection("tasks");
+    const { id } = req.params; 
+    const result = await tasks.findOne({ _id: new ObjectId(id) });
+
+    if (!result) {
+      return res.status(404).json({ success: false, message: "Task not found" });
+    }
+    res.json({
+      success: true,
+      task: result
+    });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Server error" });
+  }
+});
 app.delete("/delete-task/:id", async (req, res) => {
   try {
     const db = getDB();

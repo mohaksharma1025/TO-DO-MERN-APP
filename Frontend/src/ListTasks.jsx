@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import "./STYLE/ListTask.css";
-
+import { Link } from "react-router-dom";
 export default function ListTasks() {
   const [tasks, setTasks] = useState([]);
 
@@ -60,6 +60,15 @@ export default function ListTasks() {
                   >
                     Delete
                   </button>
+                  <Link to={`/update/${task._id}`}>
+                   <button
+                    className="delete-button"
+                    onClick={() => UpdateTask(task._id)}
+                  >
+                  Update
+                  
+                  </button>
+                  </Link>
                 </td>
               </tr>
             ))}
